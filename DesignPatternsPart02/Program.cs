@@ -1,13 +1,25 @@
 ﻿using DesignPatternsPart02.Classes;
+using DesignPatternsPart02.Classes.Piano;
+using DesignPatternsPart02.Classes.Piano.Interfaces;
 
 internal class Program
 {
     public static void Main(string[] args)
     {
-        var connection = new ConnectionFactory().GetConnection();
+        var notes = new MusicalNotes();
 
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM PERSON";
+        var music = new List<INote>()
+        {
+            notes.Get("do"),
+            notes.Get("re"),
+            notes.Get("mi"),
+            notes.Get("fa"),
+            notes.Get("fa"),
+            notes.Get("fa")
+        };
+
+        var piano = new PianoSongs();
+        
+        piano.Play(music);
     }
 }
-
