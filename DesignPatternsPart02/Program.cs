@@ -1,4 +1,5 @@
 ﻿using DesignPatternsPart02.Classes;
+using DesignPatternsPart02.Classes.Contracts;
 using DesignPatternsPart02.Classes.Piano;
 using DesignPatternsPart02.Classes.Piano.Interfaces;
 
@@ -6,20 +7,19 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-        var notes = new MusicalNotes();
+        var historic = new HistoricContract();
+        var contract = new Contract(DateTime.Now, "tiago", TypeContract.New);
 
-        var music = new List<INote>()
-        {
-            notes.Get("do"),
-            notes.Get("re"),
-            notes.Get("mi"),
-            notes.Get("fa"),
-            notes.Get("fa"),
-            notes.Get("fa")
-        };
-
-        var piano = new PianoSongs();
+        historic.Add(contract.SaveState());
         
-        piano.Play(music);
+        contract.Advance();
+        historic.Add(contract.SaveState());
+        contract.Advance();
+        historic.Add(contract.SaveState());
+        
+        Console.WriteLine(historic.States.Count);
+        Console.WriteLine(historic.Get(0).Contract.Type);
+        Console.WriteLine(historic.Get(1).Contract.Type);
+        Console.WriteLine(historic.Get(2).Contract.Type);
     }
 }
