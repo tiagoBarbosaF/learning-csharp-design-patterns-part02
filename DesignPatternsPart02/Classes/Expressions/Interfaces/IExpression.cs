@@ -3,4 +3,5 @@
 public interface IExpression
 {
     double Evaluate();
+    void Accept(IVisitor printerVisitor);
 }

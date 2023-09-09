@@ -4,20 +4,23 @@ namespace DesignPatternsPart02.Classes.Expressions;
 
 public class Sum : IExpression
 {
-    private IExpression _left;
-    private IExpression _right;
+    public IExpression Left { get; private set; }
+    public IExpression Right { get; private set; }
 
     public Sum(IExpression left, IExpression right)
     {
-        _left = left;
-        _right = right;
+        Left = left;
+        Right = right;
     }
 
     public double Evaluate()
     {
-        var leftValue = _left.Evaluate();
-        var rightValue = _right.Evaluate();
+        var leftValue = Left.Evaluate();
+        var rightValue = Right.Evaluate();
 
         return leftValue + rightValue;
     }
+
+    public void Accept(IVisitor printerVisitor) => printerVisitor.PrintSum(this);
+    public void OtherAccept(IVisitor printerVisitor) => printerVisitor.PrintOtherFormatSum(this);
 }

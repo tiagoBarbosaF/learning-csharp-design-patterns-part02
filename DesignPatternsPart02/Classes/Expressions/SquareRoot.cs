@@ -4,15 +4,17 @@ namespace DesignPatternsPart02.Classes.Expressions;
 
 public class SquareRoot : IExpression
 {
-    private IExpression _expression;
+    public IExpression Expression { get; private set; }
 
     public SquareRoot(IExpression expression)
     {
-        _expression = expression;
+        Expression = expression;
     }
 
     public double Evaluate()
     {
-        return Math.Sqrt(_expression.Evaluate());
+        return Math.Sqrt(Expression.Evaluate());
     }
+
+    public void Accept(IVisitor printerVisitor) => printerVisitor.PrintSquareRoot(this);
 }
