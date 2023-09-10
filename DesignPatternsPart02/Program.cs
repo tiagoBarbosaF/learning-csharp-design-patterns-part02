@@ -1,4 +1,4 @@
-﻿using DesignPatternsPart02.Classes.Expressions;
+﻿using DesignPatternsPart02.Classes.Requests;
 
 namespace DesignPatternsPart02;
 
@@ -6,14 +6,16 @@ internal static class Program
 {
     public static void Main(string[] args)
     {
-        var messageAdmin = new MessageAdministrative("Tiago");
-        var messageClient = new MessageClient("Tiago");
-        var senderSms = new SendingBySms();
-        var senderEmail = new SendingByEmail();
-        messageAdmin.Sender = senderSms;
-        messageAdmin.Send();
+        var workQueue = new WorkQueue();
 
-        messageClient.Sender = senderEmail;
-        messageClient.Send();
+        var request1 = new Request("Tiago", 100);
+        var request2 = new Request("Peter", 200);
+        
+        workQueue.Add(new PayRequest(request1));
+        workQueue.Add(new PayRequest(request2));
+        
+        workQueue.Add(new FinishRequest(request2));
+        
+        workQueue.Process();
     }
 }
