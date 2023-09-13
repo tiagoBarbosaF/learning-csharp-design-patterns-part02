@@ -1,4 +1,4 @@
-﻿using DesignPatternsPart02.Classes.Requests;
+﻿using DesignPatternsPart02.Classes.Clients;
 
 namespace DesignPatternsPart02;
 
@@ -6,16 +6,10 @@ internal static class Program
 {
     public static void Main(string[] args)
     {
-        var workQueue = new WorkQueue();
+        var client = new Client() { Name = "Tiago", Address = "Street Test", Birthdate = DateTime.Now };
 
-        var request1 = new Request("Tiago", 100);
-        var request2 = new Request("Peter", 200);
+        var xml = new XmlGenerator().GeneratesXml(client);
         
-        workQueue.Add(new PayRequest(request1));
-        workQueue.Add(new PayRequest(request2));
-        
-        workQueue.Add(new FinishRequest(request2));
-        
-        workQueue.Process();
+        Console.WriteLine(xml);
     }
 }
